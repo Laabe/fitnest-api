@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // You can call other seeders here if needed
         $this->call(MealPlanSeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }
