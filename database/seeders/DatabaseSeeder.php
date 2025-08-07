@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
+        // You can call other seeders here if needed
+        $this->call(MealPlanSeeder::class);
     }
 }
