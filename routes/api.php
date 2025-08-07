@@ -11,3 +11,13 @@ Route::apiResource(
     'meal-plans',
     App\Http\Controllers\MealPlanController::class
 )->middleware('auth:sanctum');
+
+Route::apiResource(
+    'categories',
+    App\Http\Controllers\CategoryController::class
+)->middleware('auth:sanctum');
+
+Route::apiResource(
+    'products',
+    App\Http\Controllers\ProductController::class
+)->middleware('auth:sanctum');
