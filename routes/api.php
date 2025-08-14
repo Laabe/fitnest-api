@@ -21,3 +21,8 @@ Route::apiResource(
     'products',
     App\Http\Controllers\ProductController::class
 )->middleware('auth:sanctum');
+
+Route::apiResource(
+    'meals',
+    App\Http\Controllers\MealController::class
+)->middleware('auth:sanctum');
