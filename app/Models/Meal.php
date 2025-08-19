@@ -5,7 +5,7 @@ namespace App\Models;
 use Database\Factories\MealFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * @method static create(mixed $validated)

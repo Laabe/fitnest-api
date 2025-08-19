@@ -2,30 +2,41 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use MongoDB\Laravel\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static create(array $array)
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, HasUuids;
 
+    protected $connection = 'mongodb';
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'type',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',

@@ -15,8 +15,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         // You can call other seeders here if needed
         $this->call(MealSeeder::class);
-        $this->call(MealPlanSeeder::class);
         $this->call(CategorySeeder::class);
-        $this->call(ProductSeeder::class);
+        $this->call(MealPlanSeeder::class);
     }
 }
