@@ -14,10 +14,10 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // API resources
     Route::apiResource('meal-plans', MealPlanController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('meals', MealController::class);
     Route::apiResource('users', UserController::class);
+    Route::put('/settings/profile', [UserController::class, 'updateMyProfile']);
 });
