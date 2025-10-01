@@ -18,15 +18,15 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, HasUuids;
 
-    protected $connection = 'mongodb';
-    protected $table = 'users';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'email'
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
