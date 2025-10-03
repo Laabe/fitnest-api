@@ -18,7 +18,10 @@ class UserController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $users = User::where('role', 'admin')->get()->all();
+        $users = User::where('role', 'admin')
+            ->orderByDesc('updated_at')
+            ->get()
+            ->all();
         return UserResource::collection($users);
     }
 
@@ -28,28 +31,21 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): UserResource
     {
         $validated = $request->validated();
-        $user = User::create(
-            array_merge(
-                $validated,
-                ['password' => Hash::make('password')]
-            )
-        );
+        $user = User::create([
+            ...$validated,
+            'password' => Hash::make('password')
+        ]);
         return new UserResource($user);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request): UserResource
+    public function update(UpdateUserRequest $request, User $user): UserResource
     {
         $validated = $request->validated();
-        $user = User::create(
-            array_merge(
-                $validated,
-                ['password' => Hash::make('password')]
-            )
-        );
-        return new UserResource($user);
+        $user->update($validated);
+        return new UserResource($user->refresh());
     }
 
     /**
