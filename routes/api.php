@@ -10,10 +10,7 @@ use App\Http\Controllers\ProductController;
 
 Route::middleware('auth:sanctum')->group(function () {
     // Get authenticated user
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
+    Route::get('/user', fn (Request $request) => $request->user());
     Route::apiResource('meal-plans', MealPlanController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
