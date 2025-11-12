@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\PersonalAccessToken;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -22,31 +19,25 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
-        /** @var User $user */
-        $user = Auth::user();
+        $user = $request->user();
+        $token = $user->createToken($user->name)->plainTextToken;
 
         return response()->json([
+            'token' => $token,
             'user' => $user,
-            'token' => $user->createToken($user->name)->plainTextToken,
         ]);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): Response
+    public function destroy(Request $request): JsonResponse
     {
-        PersonalAccessToken::where('tokenable_id', $request->user()->id)->delete();
+        $user = $request->user();
+        $user->currentAccessToken()?->delete();
 
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->noContent();
-
+        return response()->json([
+            'message' => 'Logged out',
+        ]);
     }
 }
