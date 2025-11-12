@@ -8,6 +8,8 @@ use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 
+require __DIR__.'/auth.php';
+
 Route::middleware('auth:sanctum')->group(function () {
     // Get authenticated user
     Route::get('/user', fn (Request $request) => $request->user());
